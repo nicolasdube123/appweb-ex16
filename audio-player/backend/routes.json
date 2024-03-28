@@ -1,0 +1,6 @@
+{
+  "/songs": "/songs?_expand=artist",
+  "/songs/:id": "/songs?_expand=artist/id",
+  "/artists": "/artists?_embed=songs",
+  "/artists/:id": "/artists?_embed=songs/id"
+}
