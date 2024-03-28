@@ -1,49 +1,53 @@
----
-outline: deep
----
+# Revue de code de Nicolas Dubé
 
-# Runtime API Examples
+## Le Code
 
-This page demonstrates usage of some of the runtime APIs provided by VitePress.
+**Le camelCase n'est pas respecté**
 
-The main `useData()` API can be used to access site, theme, and page data for the current page. It works in both `.md` and `.vue` files:
-
-```md
-<script setup>
-import { useData } from 'vitepress'
-
-const { theme, page, frontmatter } = useData()
-</script>
-
-## Results
-
-### Theme Data
-<pre>{{ theme }}</pre>
-
-### Page Data
-<pre>{{ page }}</pre>
-
-### Page Frontmatter
-<pre>{{ frontmatter }}</pre>
+popover au lien de popOver
+```ts
+var popover = new Popover(document.getElementById('errorPopover'), {
+    title: 'Error',
+    content: 'An error occurred while playing audio file.',
+    trigger: 'manual'
+});
+popover.show();
 ```
 
-<script setup>
-import { useData } from 'vitepress'
 
-const { site, theme, page, frontmatter } = useData()
-</script>
+**Bouton stop**
 
-## Results
+On ne peut pas faire stop quand la musique est en pause
 
-### Theme Data
-<pre>{{ theme }}</pre>
 
-### Page Data
-<pre>{{ page }}</pre>
 
-### Page Frontmatter
-<pre>{{ frontmatter }}</pre>
+## Autres
 
-## More
+**Esthéthique**
 
-Check out the documentation for the [full list of runtime APIs](https://vitepress.dev/reference/runtime-api#usedata).
+[Les boutons pourraient être plus stylisé](https://getbootstrap.com/docs/4.1/components/buttons/)
+
+
+**Aucun emit utilisé**
+
+Le code utilise des stores, qui est une vielle fonctionnalité
+
+
+**Valeurs non utilisés**
+
+La valeur oldValue n'est pas utilisé
+```ts
+watch(audio, (newValue, oldValue) => {
+    formattedDuration.value = formatAudioDuration(newValue.duration)
+
+    newValue.addEventListener('ended', () => {
+        store.commit('nextSong');
+    });
+})
+```
+
+
+**SetInterval**
+
+SetInterval n'est pas le plus performant.
+Il est préférable d'utiliser [TimeRange](https://developer.mozilla.org/en-US/docs/Web/API/TimeRanges)
